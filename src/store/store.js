@@ -21,7 +21,7 @@ export const useloginStore = defineStore('loginstore', {
     }),
     getters: {
         students() {
-            return this.user.students
+            return this.user?.students || []
         },
     },
     actions: {
