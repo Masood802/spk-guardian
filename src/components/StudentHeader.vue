@@ -9,7 +9,7 @@
                 <p>{{ student.clas.class }} {{ student.clas.session }}</p>
             </div>
             <div>
-                <img :src="student.photo" alt="">
+                <img :src="student.photo" alt="Student photo">
             </div>
         </div>
     </div>
