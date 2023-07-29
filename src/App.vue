@@ -1,10 +1,24 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <RouterView/>
 </template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { useloginStore } from './store/store';
+
+let login = useloginStore()
+
+onMounted(() => {
+  let data = localStorage.getItem('user')
+  if (data) {
+    try {
+      data = JSON.parse(data)
+      login.user = data
+    } catch(e) {}
+  }
+})
+
+</script>
 
 <style>
 #app {

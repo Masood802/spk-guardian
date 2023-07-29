@@ -1,20 +1,63 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-
+import Home from '../views/Home.vue'
+import Register from '../views/Register.vue'
+import login from '../views/login.vue'
+import StudentDetail from '../views/Students/StudentDetail.vue'
+import Attendence from '../views/Students/Attendence.vue'
+import Exams from '../views/Students/Exams.vue'
+import fees from '../views/Students/fees.vue'
+import submit from '../views/submit.vue'
+import forgotpassword from '../views/forgotpassword.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'login',
+    component: login
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/home',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/studentDetail/:id',
+    name: 'StudentDetail',
+    component: StudentDetail,
+    props:true
+  },
+  {
+    path: '/Attendence/:id',
+    name: 'Attendence',
+    component: Attendence,
+    props:true
+  },
+  {
+    path: '/exams/:id',
+    name: 'exams',
+    component: Exams,
+    props:true
+  },
+  {
+    path: '/fees/:id',
+    name: 'fees',
+    component: fees,
+    props:true
+  },
+  {
+    path: '/submit',
+    name: 'submit',
+    component: submit
+  },
+  {
+    path: '/forgot',
+    name: 'forgotpassword',
+    component: forgotpassword
+  },
 ]
 
 const router = createRouter({
