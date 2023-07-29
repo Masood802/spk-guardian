@@ -159,8 +159,6 @@ img {
     align-items: center;
 }
 
-#show {}
-
 input[type="text"],
 input[type="email"],
 input[type="Password"] {
@@ -309,4 +307,5 @@ input[type="Password"] {
 
 .studentdata a:hover {
     opacity: 95%;
-}</style>
+}
+</style>
