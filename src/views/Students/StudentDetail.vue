@@ -12,7 +12,7 @@
                 <AccountGroup/>
                 <div class="sub">
                     <h3>{{student.class }}{{ student.clas.session }}</h3>
-                    <p>class</p>
+                    <p>Class</p>
                 </div>
              </div>
              <div class="info">
