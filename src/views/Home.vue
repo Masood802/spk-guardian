@@ -8,15 +8,17 @@
         </div> 
         <div v-else>
           Invalid Credentials
-          <button @click="$router.push('/')">Back to Login</button>
+          <button @click="router.push('/')">Back to Login</button>
         </div>       
         
 </template>
 
 <script setup>
+import {useRouter} from 'vue-router'
 import {useloginStore} from '@/store/store'
 
 let loginstore = useloginStore()
+let router =useRouter()
 </script>
 
 <style scoped>

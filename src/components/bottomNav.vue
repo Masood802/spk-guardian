@@ -1,19 +1,19 @@
 <template>
     <div>
         <div class="footer">
-        <router-link class="footertabs" :to="{name:'StudentDetail',params:{id:$route.params.id}}" >
+        <router-link class="footertabs" :to="{name:'StudentDetail',params:{id:route.params.id}}" >
             <AccountCircle/>
             <h3>Basic Info</h3>
         </router-link>
-        <router-link class="footertabs"  :to="{name:'Attendence',params:{id:$route.params.id}}">
+        <router-link class="footertabs"  :to="{name:'Attendence',params:{id:route.params.id}}">
             <Calendar/>
             <h3>Attencdence</h3>
         </router-link>
-        <router-link class="footertabs"  :to="{name:'exams'}">
+        <router-link class="footertabs"  :to="{name:'exams',params:{id:route.params.id}}">
             <Note/>
             <h3>Exams</h3>
         </router-link>
-        <router-link class="footertabs"  :to="{name:'fees'}">
+        <router-link class="footertabs"  :to="{name:'fees',params:{id:route.params.id}}">
             <Cash/>
             <h3>Fees</h3>
         </router-link>
@@ -21,20 +21,14 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import AccountCircle from '@/assets/icons/AccountCircle.vue'
 import Calendar from '@/assets/icons/Calendar.vue'
 import Note from '@/assets/icons/Note.vue'
 import Cash from '@/assets/icons/Cash.vue'
-    export default {
-        components:{
-            AccountCircle,
-            Calendar,
-            Note,
-            Cash,
-        }
-        
-    }
+import {useRoute} from 'vue-router'
+    let route = useRoute()    
+    
 </script>
 
 <style scoped>

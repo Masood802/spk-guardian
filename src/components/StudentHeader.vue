@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="header">
-            <div class="back" @click="$router.push('/')">
+            <div class="back" @click="router.push('/')">
                 <KeyboardBackspace />
             </div>
             <div class="stdheader">
@@ -20,10 +20,12 @@ import { useloginStore } from '@/store/store'
 import KeyboardBackspace from '../assets/icons/KeyboardBackspace.vue'
 import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 let loginstore = useloginStore()
 let student = ref({})
 let route = useRoute()
+let router = useRouter()
 
 onBeforeMount(() => {
     console.log(route.params.id)
@@ -84,4 +86,5 @@ img {
 h1 {
     margin-top: 40px;
 
-}</style>
+}
+</style>

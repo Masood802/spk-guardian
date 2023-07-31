@@ -27,8 +27,8 @@
                     <button type="submit">LOGIN</button>
                 </div>
                 <div class="btn-new">
-                    <button @click="$router.push('/Register')">CREATE A NEW ACCOUNT</button>
-                    <button @click="$router.push('/forgot')">FORGOT PASSWORD</button>
+                    <button @click="router.push('/Register')">CREATE A NEW ACCOUNT</button>
+                    <button @click="router.push('/forgot')">FORGOT PASSWORD</button>
 
                 </div>
             </form>
@@ -44,7 +44,7 @@
                 <img :src="loginstore.user.user.photo" alt="myimage">
             </div>
             <!-----------------------------------------Student Details-------------------------->
-            <div class="studentdata" v-if="loginstore.students.length">
+            <div class="studentdata" v-if="loginstore.students.length != 0">
 
                 <div class="student" v-for="student in loginstore.students" :key="student.id">
 
@@ -53,9 +53,9 @@
                             <img :src="student.photo" alt="myimage">
                         </div>
                         <div class="data">
-                            <p>{{ student.name }}</p>
-                            <p>{{ student.clas.class }} {{ student.clas.session }}</p>
-                            <p>Roll# {{ student.roll_num }}</p>
+                            <p>{{ student?.name }}</p>
+                            <p>{{ student?.clas?.class }} {{ student?.clas?.session }}</p>
+                            <p>Roll# {{ student?.roll_num }}</p>
                             <p class="enrolled">{{ student.status }}</p>
                         </div>
                     </router-link>
@@ -82,18 +82,26 @@ import EyeOff from '../assets/icons/EyeOff.vue'
 import { useloginStore } from '@/store/store'
 import Eye from '../assets/icons/Eye.vue'
 import { useRouter } from 'vue-router'
+import { onBeforeMount } from 'vue'
+import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 
 let loginstore = useloginStore()
 let router = useRouter()
+let student = ref({})
+let route = useRoute()
+
+onBeforeMount(() => {
+    student.value = loginstore.students.find(s => s.id = route.params.id)
+    console.log(loginstore.students.student)
+})
 
 function logout() {
     loginstore.logedIn = false;
     localStorage.clear();
 }
 
-function getDetails() {
-    router.push('/studentDetail/id')
-}
+
 
 function TogglePassword() {
     if (loginstore.passwrdType === 'password')

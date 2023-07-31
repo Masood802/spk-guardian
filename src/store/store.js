@@ -15,15 +15,12 @@ export const useloginStore = defineStore('loginstore', {
         page: 'login',
         logedIn: false,
         passwrdType: 'password',
-        // students: [],
+        students: [],
         token: '',
         isloading: false
     }),
-    getters: {
-        students() {
-            return this.user?.students || []
-        },
-    },
+   
+    
     actions: {
         async login() {
             this.isloading = true
@@ -37,7 +34,8 @@ export const useloginStore = defineStore('loginstore', {
                 this.user = res.data
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('user', JSON.stringify(res.data.user))
-                // this.students = this.user.user.students
+                console.log(this.user)
+                this.students = this.user.user.students
             }
             else
                 alert('UserName /Password incorrect')
