@@ -65,46 +65,6 @@ async function loadVouchers (){
   vouchers = res?.data;
   
 }
-/*  export default {
-        components:{
-            bottomNav,
-            AlertCircle,
-            CheckCircle
-        },
-        data(){
-                return{
-                    loginstore:useloginStore(),
-                    student:{},
-                    vouchers:{},
-                   
-                    
-                }
-            },
-           created(){
-               this.student=this.loginstore.students.find(s=>s.id=this.$route.params.id)
-              
-               this.loadVouchers()
-            },
-            methods:{
-                async loadVouchers(){
-                    this.loginstore.isloading=true
-            const res=await axios.get(`students/vouchers/${this.student.id}`,{
-                params: {
-                end_date: moment.min(moment(), moment(this.student.clas.end_date)).startOf('month').format('YYYY-MM-DD'),
-            }
-            })
-            this.loginstore.isloading=false
-            this.totalfeedue=res.data.summary.total-res.data.summary.totalPaid
-            this.vouchers=res.data
-            console.log(this.vouchers)
-        },
-        convertMonth(month){
-           month = moment(month).format('MMM')
-        }
-            } 
-                   
-    
-    }*/
 </script>
 
 <style scoped>
