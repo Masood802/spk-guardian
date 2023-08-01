@@ -1,58 +1,55 @@
 <template>
   <div>
-    <StudentHeader />
-    <h1>{{ mydate }}</h1>
+    <StudentHeader/>
+    <h1>{{ _date }}</h1>
   </div>
   <div v-if="!loginstore.isloading">
     <VueDatePicker
-      class="date"
-      v-model="date"
-      month-picker
-      position="center"
-      format="MM-yyyy"
-      :min="student?.clas?.start_date"
-      :max="student?.clas?.end_date"
-      @update:model-value="getAttendece"
-      model-type="yyyy-MM-01"
+        class="date"
+        v-model="_date"
+        month-picker
+        position="center"
+        format="MM-yyyy"
+        :min="student?.clas?.start_date"
+        :max="student?.clas?.end_date"
+        @update:model-value="getAttendece"
+        model-type="yyyy-MM-01"
     />
   </div>
   <div class="summery" v-if="!loginstore.isloading">
     <div>
       <h4 class="P">Presence</h4>
       <span
-        >{{ attendence?.summary?.P }}--{{
+      >{{ attendence?.summary?.P }}</span>
+      <span v-if="attendence?.summary?.P!=0">{{
           (attendence?.summary?.P / attendence?.summary?.total) * 100
-        }}%</span
-      >
+        }}%</span>
     </div>
     <div>
       <h4 class="A">Absence</h4>
-      <span
-        >{{ attendence?.summary?.A }}--{{
-          (attendence?.summary?.A / attendence?.summary?.total) * 100
-        }}%</span
-      >
+      <span>{{ attendence?.summary?.A }}</span>
+      <span v-if="attendence?.summary?.A!=0">
+        {{ (attendence?.summary?.A / attendence?.summary?.total) * 100 }}%</span>
     </div>
     <div>
       <h4 class="L">Leaves</h4>
-      <span
-        >{{ attendence?.summary?.L }} --{{
+      <span>{{ attendence?.summary?.L }}</span>
+      <span v-if="attendence?.summary?.L!=0">{{
           (attendence?.summary?.L / attendence?.summary?.total) * 100
-        }}%</span
-      >
+        }}%</span>
     </div>
   </div>
   <div v-else>
     <div class="card">
-      <img src="../../assets/schoolpk-logo.png" alt="Show Image" />
+      <img src="../../assets/schoolpk-logo.png" alt="Show Image"/>
       <h2>Data is Loading.........</h2>
     </div>
   </div>
 
   <div class="calender" v-if="!loginstore.isloading">
     <div
-      v-for="(day, index) in days"
-      :class="{
+        v-for="(day, index) in days"
+        :class="{
         success: getStatus(day) == 'P',
         danger: getStatus(day) == 'A',
         warning: getStatus(day) == 'L',
@@ -62,87 +59,82 @@
     </div>
   </div>
 
-  <bottomNav />
+  <bottomNav/>
 </template>
 
-<script>
+<script setup>
 import axios from "axios";
-import { useloginStore } from "@/store/store";
+import {useloginStore} from "@/store/store";
 import moment from "moment";
 import bottomNav from "@/components/bottomNav.vue";
-export default {
-  components: {
-    bottomNav,
-  },
-  data() {
-    return {
-      loginstore: useloginStore(),
-      student: {},
-      days: [],
-      attendence: "",
-      date: "",
-      options: { year: "numeric", month: "long" },
-      mydate: "",
-    };
-  },
-  computed: {
-    EndDate() {
-      return moment(this.date).add(1, "months").format("YYYY-MM-DD");
-    },
-  },
-  created() {
-    this.student = this.loginstore.students.find(
-      (s) => (s.id = this.$route.params.id)
-    );
-    this.date = moment
-      .min(moment(), moment(this.student.clas.end_date))
+import {ref, watch, computed, onBeforeMount} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+
+let loginstore = useloginStore()
+let student = ref({})
+let days = ref({})
+let attendence = ref('')
+let _date = ref('')
+let myDate = ref('')
+let route = useRoute()
+
+let EndDate = computed(() => {
+  return moment(_date.value).add(1, 'months').format('YYYY-MM-DD')
+})
+onBeforeMount(() => {
+  student.value = loginstore.students.find(
+      (s) => (s.id = route.params.id))
+  _date.value = moment
+      .min(moment(), moment(student?.value?.clas?.end_date))
       .startOf("month")
       .format("YYYY-MM-DD");
-    this.buildDays();
-    this.getAttendece();
-  },
-  methods: {
-    async getAttendece() {
-      this.loginstore.isloading = true;
-      const resp = await axios.get(`students/attendance/${this.student.id}`, {
-        params: {
-          start_date: this.date,
-          end_date: this.EndDate,
-        },
-      });
-      this.loginstore.isloading = false;
+  buildDays();
+  getAttendece();
+})
 
-      this.attendence = resp.data;
+async function getAttendece() {
+  loginstore.isloading = true;
+  console.log(_date.value)
+  console.log(EndDate.value)
+  const resp = await axios.get(`students/attendance/${student.value.id}`, {
+    params: {
+      start_date: _date.value,
+      end_date: EndDate.value
     },
-    buildDays() {
-      this.days = [];
-      let daysInMonth = moment(this.date).daysInMonth();
-      for (let i = 1; i <= daysInMonth; i++) {
-        this.days.push(moment(this.date).set("date", i).format("YYYY-MM-DD"));
-      }
-    },
-    getStatus(day) {
-      if (!this.attendence?.records || !this.attendence?.records[day])
-        return "";
-      return this.attendence?.records[day]?.status;
-    },
-    convertDate() {
-      let newDate = new Date(this.date);
-      this.myDate = newDate;
-      console.log(newDate);
-      console.log(this.mydate);
-    },
-  },
-  watch: {
-    date(date) {
-      this.convertDate();
-      if (date) {
-        this.buildDays();
-        this.getAttendece();
-      }
-    },
-  },
-};
+  });
+  loginstore.isloading = false;
+  attendence = resp.data;
+}
+
+function buildDays() {
+  days = [];
+  let daysInMonth = moment(_date.value).daysInMonth();
+  console.log(daysInMonth)
+  console.log(_date.value)
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push(moment(_date.value).set("date", i).format("YYYY-MM-DD"));
+  }
+}
+
+function getStatus(day) {
+  if (!attendence?.records || !attendence?.records[day])
+    return "";
+  return attendence?.records[day]?.status;
+}
+
+function convertDate() {
+  let newDate = new Date(_date.value);
+  myDate.value = newDate;
+}
+
+watch(_date, (date) => {
+
+  convertDate();
+  if (date) {
+    buildDays();
+    getAttendece();
+  }
+})
 </script>
 
 <style scoped>
