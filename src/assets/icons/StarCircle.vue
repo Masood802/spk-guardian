@@ -30,7 +30,7 @@ export default {
     },
     size: {
 
-      default: '2em'
+      default: '1em'
     }
   }
 }

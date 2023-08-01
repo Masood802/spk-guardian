@@ -9,10 +9,9 @@
         v-model="_date"
         month-picker
         position="center"
-        format="MM-yyyy"
+        format="MMM-yyyy"
         :min="student?.clas?.start_date"
         :max="student?.clas?.end_date"
-        @update:model-value="getAttendece"
         model-type="yyyy-MM-01"
     />
   </div>

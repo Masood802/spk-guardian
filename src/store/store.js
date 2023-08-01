@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 import axios from 'axios';
 
 export const useloginStore = defineStore('loginstore', {
@@ -19,8 +19,8 @@ export const useloginStore = defineStore('loginstore', {
         token: '',
         isloading: false
     }),
-   
-    
+
+
     actions: {
         async login() {
             this.isloading = true
@@ -36,8 +36,7 @@ export const useloginStore = defineStore('loginstore', {
                 localStorage.setItem('user', JSON.stringify(res.data.user))
                 console.log(this.user)
                 this.students = this.user.user.students
-            }
-            else
+            } else
                 alert('UserName /Password incorrect')
 
         },
@@ -54,10 +53,8 @@ export const useloginStore = defineStore('loginstore', {
                 this.user.otp = data.otp
                 this.user.id = data.id
                 console.log(this.user.id)
-            }
-            else
+            } else
                 alert(res.err)
-
 
 
         },
@@ -74,7 +71,6 @@ export const useloginStore = defineStore('loginstore', {
             }
 
         },
-
 
 
     }
