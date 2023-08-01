@@ -1,8 +1,9 @@
 <template>
   <div>
     <StudentHeader/>
-    <h1>{{ _date }}</h1>
+    <h1>{{ formatedDate(_date) }}</h1>
   </div>
+  <h1 v-if="loginstore.summary">No data for this Month</h1>
   <div v-if="!loginstore.isloading">
     <VueDatePicker
         class="date"
@@ -19,23 +20,23 @@
     <div>
       <h4 class="P">Presence</h4>
       <span
-      >{{ attendence?.summary?.P }}</span>
+      >{{ attendence?.summary?.P }}-</span>
       <span v-if="attendence?.summary?.P!=0">{{
           (attendence?.summary?.P / attendence?.summary?.total) * 100
         }}%</span>
     </div>
     <div>
       <h4 class="A">Absence</h4>
-      <span>{{ attendence?.summary?.A }}</span>
+      <span>{{ attendence?.summary?.A }}-</span>
       <span v-if="attendence?.summary?.A!=0">
-        {{ (attendence?.summary?.A / attendence?.summary?.total) * 100 }}%</span>
+        {{ (attendence?.summary?.A / attendence?.summary?.total) * 100 }} %</span>
     </div>
     <div>
       <h4 class="L">Leaves</h4>
-      <span>{{ attendence?.summary?.L }}</span>
+      <span>{{ attendence?.summary?.L }}-</span>
       <span v-if="attendence?.summary?.L!=0">{{
           (attendence?.summary?.L / attendence?.summary?.total) * 100
-        }}%</span>
+        }} %</span>
     </div>
   </div>
   <div v-else>
@@ -91,6 +92,9 @@ onBeforeMount(() => {
   getAttendece();
 })
 
+function formatedDate() {
+  return moment(_date.value).format('MMMM-YYYY')
+}
 async function getAttendece() {
   loginstore.isloading = true;
   console.log(_date.value)
@@ -171,7 +175,7 @@ img {
 .summery {
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 20px auto;
+  margin: 60px auto;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -211,7 +215,7 @@ span {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 0 auto;
+  margin:30px auto 120px auto;
 }
 
 .calender div {

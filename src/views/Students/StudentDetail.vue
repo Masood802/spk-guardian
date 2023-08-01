@@ -78,7 +78,7 @@ onBeforeMount(() => {
 }
 .maininfo {
   width: 80%;
-  margin: 50px auto;
+  margin: 100px auto;
 }
 .info {
   display: flex;

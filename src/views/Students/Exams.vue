@@ -1,7 +1,7 @@
 <template>
   <StudentHeader/>
-  <div v-if="!loginstore.isloading">
-    <h3>Test Result of {{ date }}
+  <div class="head" v-if="!loginstore.isloading">
+    <h1>{{ formatedDate(date) }}
       <VueDatePicker
           class="date"
           v-model="date"
@@ -13,13 +13,13 @@
           model-type="yyyy-MM-dd"
           value="date"
       />
-    </h3>
+    </h1>
     <div class="examReport">
       <div>
 
         <h1 v-if="report?.summary?.score">
           <StarCircle/>
-          Overall Position : {{ report?.summary?.position }}
+          Overall Position : {{ report?.summary?.position | position}}
         </h1>
         <h1 v-else> No Test Record for The Month</h1>
       </div>
@@ -92,7 +92,9 @@ onBeforeMount(() => {
   loadExamReport();
 
 })
-
+function formatedDate(){
+  return moment(date.value).format('MMMM-YYYY')
+}
 async function loadExamReport() {
   loginstore.isloading = true;
   const res = await axios.post(`student-report`, {
@@ -121,7 +123,7 @@ watch(date, (date) => {
   box-sizing: border-box;
 }
 
-h3 {
+.head h1 {
   margin: 60px auto;
   width: 80%;
 }
