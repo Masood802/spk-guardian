@@ -5,8 +5,8 @@ export const useloginStore = defineStore('loginstore', {
     state: () => ({
         user: {
             schoolCode: 'dev',
-            email: '08es34+g2@gmail.com', // todo: remove when needed
-            password: '123456',
+            email: '', // 
+            password: '',
             otp: '',
             confirm_password: '',
             photo: '../assets/default_user.png',
