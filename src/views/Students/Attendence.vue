@@ -3,7 +3,7 @@
     <StudentHeader/>
     <h1>{{ formatedDate(_date) }}</h1>
   </div>
-  <h1 v-if="loginstore.summary">No data for this Month</h1>
+  <h1 v-if="loginstore?.summary">No data for this Month</h1>
   <div v-if="!loginstore.isloading">
     <VueDatePicker
         class="date"
@@ -95,34 +95,34 @@ onBeforeMount(() => {
 function formatedDate() {
   return moment(_date.value).format('MMMM-YYYY')
 }
+
 async function getAttendece() {
   loginstore.isloading = true;
   console.log(_date.value)
   console.log(EndDate.value)
-  const resp = await axios.get(`students/attendance/${student.value.id}`, {
+  const resp = await axios.get(`students/attendance/${student?.value?.id}`, {
     params: {
       start_date: _date.value,
       end_date: EndDate.value
     },
   });
   loginstore.isloading = false;
-  attendence = resp.data;
+  attendence.value = resp.data;
+
 }
 
 function buildDays() {
   days = [];
   let daysInMonth = moment(_date.value).daysInMonth();
-  console.log(daysInMonth)
-  console.log(_date.value)
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(moment(_date.value).set("date", i).format("YYYY-MM-DD"));
   }
 }
 
 function getStatus(day) {
-  if (!attendence?.records || !attendence?.records[day])
+  if (!attendence?.value?.records || !attendence?.value?.records[day])
     return "";
-  return attendence?.records[day]?.status;
+  return attendence?.value?.records[day]?.status;
 }
 
 function convertDate() {
@@ -215,7 +215,7 @@ span {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin:30px auto 120px auto;
+  margin: 30px auto 120px auto;
 }
 
 .calender div {

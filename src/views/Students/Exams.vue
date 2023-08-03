@@ -19,7 +19,7 @@
 
         <h1 v-if="report?.summary?.score">
           <StarCircle/>
-          Overall Position : {{ report?.summary?.position | position}}
+          Overall Position : {{ report?.summary?.position | position }}
         </h1>
         <h1 v-else> No Test Record for The Month</h1>
       </div>
@@ -92,9 +92,11 @@ onBeforeMount(() => {
   loadExamReport();
 
 })
-function formatedDate(){
+
+function formatedDate() {
   return moment(date.value).format('MMMM-YYYY')
 }
+
 async function loadExamReport() {
   loginstore.isloading = true;
   const res = await axios.post(`student-report`, {
@@ -107,8 +109,7 @@ async function loadExamReport() {
   });
   loginstore.isloading = false;
   report = res.data;
-  console.log(report);
-  console.log(report?.summary?.position);
+
 }
 
 watch(date, (date) => {

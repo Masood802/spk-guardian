@@ -3,10 +3,11 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { useloginStore } from './store/store';
+import {onMounted} from 'vue';
+import {useloginStore} from './store/store';
 
 let login = useloginStore()
+
 
 onMounted(() => {
   let data = localStorage.getItem('user')
@@ -14,7 +15,9 @@ onMounted(() => {
     try {
       data = JSON.parse(data)
       login.user = data
-    } catch(e) {}
+
+    } catch (e) {
+    }
   }
 })
 

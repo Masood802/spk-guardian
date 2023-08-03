@@ -1,11 +1,13 @@
 import {defineStore} from 'pinia';
 import axios from 'axios';
+import router from "@/router";
 
 export const useloginStore = defineStore('loginstore', {
     state: () => ({
-        user: {
+        user: {},
+        form: {
             schoolCode: 'dev',
-            email: '', // 
+            email: '',
             password: '',
             otp: '',
             confirm_password: '',
@@ -15,52 +17,50 @@ export const useloginStore = defineStore('loginstore', {
         page: 'login',
         logedIn: false,
         passwrdType: 'password',
-        students: [],
         token: '',
         isloading: false
     }),
-
-
+    getters:{
+        students(){
+            return this.user?.students
+        }
+    },
     actions: {
         async login() {
             this.isloading = true
             const res = await axios.post('/login', {
-                email: this.user.email,
-                password: this.user.password
+                email: this.form.email,
+                password: this.form.password
             })
             if (res.status == 200) {
                 this.logedIn = true
                 this.isloading = false
-                this.user = res.data
+                this.user = res.data.user
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('user', JSON.stringify(res.data.user))
-                console.log(this.user)
-                this.students = this.user.user.students
+                router.push('/home')
             } else
                 alert('UserName /Password incorrect')
-
         },
         async register() {
             const res = await axios.post('/register', {
-                email: this.user.email,
-                password: this.user.password,
-                confirm_password: this.user.confirm_password
+                email: this.form.email,
+                password: this.form.password,
+                confirm_password: this.form.confirm_password
             })
             if (res.status == 200) {
                 const data = res.data
                 console.log(data)
                 alert('OTP has Sent to your email Address')
-                this.user.otp = data.otp
-                this.user.id = data.id
+                this.form.otp = data.otp
+                this.form.id = data.id
                 console.log(this.user.id)
             } else
                 alert(res.err)
-
-
         },
         async submit() {
             const res = await axios.post(`/${this.user.id}/activate-account`, {
-                otp: this.user.otp
+                otp: this.form.otp
             })
             if (res.status == 200) {
                 alert('You have successfully registered')
@@ -69,9 +69,6 @@ export const useloginStore = defineStore('loginstore', {
                 this.$router.push('/')
                 console.log(data)
             }
-
         },
-
-
     }
 })

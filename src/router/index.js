@@ -17,7 +17,8 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
+    props:true
   },
   {
     path: '/Register',
@@ -25,7 +26,7 @@ const routes = [
     component: Register
   },
   {
-    path: '/studentDetail/:id',
+    path: '/student-detail/:id',
     name: 'StudentDetail',
     component: StudentDetail,
     props:true

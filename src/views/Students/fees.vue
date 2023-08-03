@@ -1,5 +1,5 @@
 <template>
-  <StudentHeader />
+  <StudentHeader/>
   <div v-if="!loginstore.isloading">
     <div class="feesummery">
       <h3>Current Amount Due</h3>
@@ -8,9 +8,9 @@
     <div class="monthfee" v-for="record in vouchers.records">
       <h4>{{ record.month }}-{{ record.year }}</h4>
       <span class="danger" v-if="record.payment === null"
-        ><Alert-Circle
+      ><Alert-Circle
       /></span>
-      <span class="success" v-else><CheckCircle /></span>
+      <span class="success" v-else><CheckCircle/></span>
       <h3>Due:PKR {{ record.total }}</h3>
 
       <div v-for="detail in record.details">
@@ -23,47 +23,49 @@
   </div>
   <div v-else>
     <div class="card">
-      <img src="../../assets/schoolpk-logo.png" alt="Show Image" />
+      <img src="../../assets/schoolpk-logo.png" alt="Show Image"/>
       <h2>Data is Loading.........</h2>
     </div>
   </div>
-  <bottomNav />
+  <bottomNav/>
 </template>
 
 <script setup>
 import moment from "moment";
 import axios from "axios";
 import bottomNav from "@/components/bottomNav.vue";
-import { useloginStore } from "@/store/store";
+import {useloginStore} from "@/store/store";
 import AlertCircle from "../../assets/icons/AlertCircle.vue";
 import CheckCircle from "../../assets/icons/CheckCircle.vue";
-import { ref } from "vue";
-import { useRoute } from "vue-router";
-import { onBeforeMount } from "vue";
+import {ref} from "vue";
+import {useRoute} from "vue-router";
+import {onBeforeMount} from "vue";
+
 let loginstore = useloginStore();
 let student = ref({});
 let vouchers = ref({});
 let route = useRoute();
-let totalfeedue=ref(0)
+let totalfeedue = ref(0)
 
 onBeforeMount(() => {
   student.value = loginstore.students.find((s) => (s.id = route.params.id));
   loadVouchers();
 })
-async function loadVouchers (){
+
+async function loadVouchers() {
   loginstore.isloading = true;
   const res = await axios.get(`students/vouchers/${student.value.id}`, {
     params: {
       end_date: moment
-        .min(moment(), moment(student.value.clas.end_date))
-        .startOf("month")
-        .format("YYYY-MM-DD"),
+          .min(moment(), moment(student.value.clas.end_date))
+          .startOf("month")
+          .format("YYYY-MM-DD"),
     },
   })
   loginstore.isloading = false;
   totalfeedue = res?.data?.summary?.total - res?.data?.summary?.totalPaid;
   vouchers = res?.data;
-  
+
 }
 </script>
 
@@ -82,6 +84,7 @@ async function loadVouchers (){
   padding: 20px;
   border-radius: 10px;
 }
+
 .monthfee {
   width: 76%;
   margin: 10px auto;
@@ -89,6 +92,7 @@ async function loadVouchers (){
   padding: 20px;
   border-radius: 10px;
 }
+
 .monthfee div {
   border-bottom: 1px solid rgb(175, 170, 170);
   padding: 12px 0;
@@ -96,27 +100,34 @@ async function loadVouchers (){
   display: flex;
   justify-content: space-between;
 }
+
 .success {
   color: green;
 }
+
 .danger {
   color: red;
 }
+
 .monthfee h2 {
   text-align: right;
   margin-right: 10px;
 }
+
 .monthfee h3 {
   font-size: 25px;
 }
+
 .monthfee h4 {
   padding: 8px 0;
   color: rgb(156, 151, 151);
 }
+
 .monthfee div h4 {
   margin: 0 20px;
   color: #2c3e50;
 }
+
 .card {
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -124,6 +135,7 @@ async function loadVouchers (){
   background-color: aliceblue;
   border-radius: 10px;
 }
+
 img {
   width: 30%;
 }
