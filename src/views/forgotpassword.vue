@@ -6,7 +6,7 @@
     </div>
     <div class="email">
       <Email/>
-      <input type="email" placeholder="Email" v-model="loginstore.user.email">
+      <input type="email" placeholder="Email" v-model="loginstore.form.email">
     </div>
     <div class="logout" @click="forgot">
       <button>SUBMIT</button>

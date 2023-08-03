@@ -3,7 +3,7 @@
     <StudentHeader/>
     <h1>{{ formatedDate(_date) }}</h1>
   </div>
-  <h1 v-if="loginstore?.summary">No data for this Month</h1>
+  <h1 v-if="loginstore?.summary===null">No data for this Month</h1>
   <div v-if="!loginstore.isloading">
     <VueDatePicker
         class="date"
@@ -16,7 +16,7 @@
         model-type="yyyy-MM-01"
     />
   </div>
-  <div class="summery" v-if="!loginstore.isloading">
+  <div :class="loginstore.isloading ? 'blur' : 'summery'" v-if="!loginstore.isloading">
     <div>
       <h4 class="P">Presence</h4>
       <span
@@ -182,7 +182,17 @@ img {
   height: 120px;
   border-radius: 5px;
 }
-
+.blur{
+  filter:blur(8px);
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 60px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  height: 120px;
+  border-radius: 5px;
+}
 .P {
   background-color: rgb(4, 94, 4);
   padding: 12px 16px;
@@ -224,8 +234,8 @@ span {
   width: 3.5em;
   height: 3.5em;
   text-align: center;
-  padding: 14px 16px;
-  margin: 10px 18px;
+  padding: 1.2em 1em;
+  margin: .5em .8em;
   font-weight: bold;
 }
 

@@ -66,7 +66,7 @@ let route = useRoute();
 
 onMounted( () => {
    student.value= loginstore.students.find((s) => (s.id = route.params.id));
-  console.log(student.value)
+
 });
 </script>
 

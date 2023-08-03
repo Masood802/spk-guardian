@@ -8,21 +8,31 @@
       <form @submit="loginstore.register">
         <div class="code">
           <code-tags/>
-          <input type="text" placeholder="School Code" v-model="loginstore.user.schoolCode">
+          <input type="text" placeholder="School Code" v-model="loginstore.form.schoolCode">
         </div>
         <div class="email">
           <email/>
-          <input type="email" placeholder="Email" v-model="loginstore.user.email">
+          <input type="email" placeholder="Email" v-model="loginstore.form.email">
         </div>
-        <div class="email">
+        <div class="password">
           <lock/>
-          <input type="password" placeholder="Password" v-model="loginstore.user.password">
-          <eye-off/>
+          <input :type="loginstore.passwrdType" placeholder="Password" v-model="loginstore.form.password">
+          <div id="show" v-if="loginstore.passwrdType === 'password'" @click="TogglePassword">
+            <eye-off/>
+          </div>
+          <div id="show" v-else @click="TogglePassword">
+            <eye/>
+          </div>
         </div>
-        <div class="email">
+        <div class="password">
           <lock/>
-          <input type="password" placeholder="Confirm Password" v-model="loginstore.user.confirm_password">
-          <eye-off/>
+          <input :type="loginstore.passwrdType" placeholder="Confirm Password" v-model="loginstore.form.password">
+          <div id="show" v-if="loginstore.passwrdType === 'password'" @click="TogglePassword">
+            <eye-off/>
+          </div>
+          <div id="show" v-else @click="TogglePassword">
+            <eye/>
+          </div>
         </div>
         <div class="btn-new">
           <button @click="$router.push('/submit')">REGISTER</button>
@@ -33,25 +43,21 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import CodeTags from '../assets/icons/CodeTags.vue'
 import Email from '../assets/icons/Email.vue'
 import Lock from '../assets/icons/Lock.vue'
 import EyeOff from '../assets/icons/EyeOff.vue'
 import {useloginStore} from '@/store/store';
 
-export default {
-  components: {
-    CodeTags,
-    Email,
-    Lock,
-    EyeOff
-  },
-  data() {
-    return {
-      loginstore: useloginStore()
-    }
-  }
+let loginstore = useloginStore()
+
+function TogglePassword() {
+  console.log('Hellow')
+  if (loginstore.passwrdType === 'password')
+    loginstore.passwrdType = 'text'
+  else if (loginstore.passwrdType === 'text')
+    loginstore.passwrdType = 'password'
 }
 </script>
 
@@ -96,6 +102,14 @@ input[type="text"], input[type="email"], input[type="Password"] {
   margin: 0 5px;
   outline: none;
 
+}
+
+input[type="password"] {
+  flex-grow: 1;
+}
+
+input[type="text"] {
+  flex-grow: 1;
 }
 
 .code:focus-within {
