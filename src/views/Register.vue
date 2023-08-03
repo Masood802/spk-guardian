@@ -153,4 +153,9 @@ input[type="text"] {
   background-color: rgb(235, 225, 225);
   box-shadow: 2px 1px 4px rgb(235, 225, 225);
 }
+
+.btn-new button:hover {
+  background-color: dodgerblue;
+  color: white;
+}
 </style>

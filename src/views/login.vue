@@ -30,7 +30,7 @@
         </div>
         <div class="btn-new">
           <button @click="router.push('/Register')">CREATE A NEW ACCOUNT</button>
-          <button @click="router.push('/forgot')">FORGOT PASSWORD</button>
+          <button  @click="router.push('/forgot')">FORGOT PASSWORD</button>
 
         </div>
       </form>
@@ -139,6 +139,7 @@ input[type="Password"] {
   width: 300px;
   margin: 0 .2em;
   outline: none;
+  flex-grow: 1;
 
 }
 
@@ -170,6 +171,9 @@ input[type="Password"] {
   font-size: 1em;
 }
 
+.btn-login button:hover{
+  opacity: 80%;
+}
 .btn-new {
   width: 50%;
   display: flex;
@@ -178,7 +182,7 @@ input[type="Password"] {
 }
 
 .btn-new button {
-  padding: .5em .7em;
+  padding: .8em .7em;
   margin: .5em auto;
   width: 100%;
   font-weight: bold;
@@ -186,5 +190,11 @@ input[type="Password"] {
   border: none;
   background-color: rgb(235, 225, 225);
   box-shadow: 2px 1px 4px rgb(235, 225, 225);
+  text-align: center;
+}
+
+.btn-new button:hover{
+  background-color: dodgerblue;
+  color:white;
 }
 </style>

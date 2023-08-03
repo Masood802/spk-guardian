@@ -19,7 +19,7 @@
 
         <h1 v-if="report?.summary?.score">
           <StarCircle/>
-          Overall Position : {{ report?.summary?.position | position }}
+          Overall Position : {{ report?.summary?.position }}
         </h1>
         <h1 v-else> No Test Record for The Month</h1>
       </div>
