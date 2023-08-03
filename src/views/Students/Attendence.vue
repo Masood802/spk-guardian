@@ -55,7 +55,7 @@
         warning: getStatus(day) == 'L',
       }"
     >
-      <span>{{ index + 1 }}</span>
+      <span>{{ index < 9 ? 0 : '' }}{{ index + 1 }}</span>
     </div>
   </div>
 
@@ -219,10 +219,10 @@ span {
 }
 
 .calender div {
-  background-color: rgb(247, 249, 252);
+  background-color: rgb(237, 238, 241);
   border-radius: 50%;
-  width: 50x;
-  height: 50px;
+  width: 3.5em;
+  height: 3.5em;
   text-align: center;
   padding: 14px 16px;
   margin: 10px 18px;
