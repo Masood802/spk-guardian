@@ -95,11 +95,11 @@ function TogglePassword() {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 3em;
 }
 
 img {
-  width: 30%;
+  width: 40%;
 }
 
 .code,
@@ -109,13 +109,13 @@ img {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 18px;
+  font-size: 1em;
   border-bottom: 2px solid gray
 }
 
 .password {
   width: 50%;
-  margin: 0 25%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   border-bottom: 2px solid gray
@@ -134,10 +134,10 @@ input[type="text"],
 input[type="email"],
 input[type="Password"] {
   border: none;
-  padding: 10px 0;
-  font-size: 18px;
+  padding: .7em 0;
+  font-size: 1em;
   width: 300px;
-  margin: 0 5px;
+  margin: 0 .2em;
   outline: none;
 
 }
@@ -163,23 +163,23 @@ input[type="Password"] {
   border: none;
   background-color: dodgerblue;
   width: 100%;
-  margin-top: 15px;
-  padding: 10px 12px;
+  margin-top: 1em;
+  padding: .7em .9em;
   border-radius: 5px;
   color: white;
-  font-size: 18px;;
+  font-size: 1em;
 }
 
 .btn-new {
   width: 50%;
   display: flex;
   flex-direction: column;
-  margin: 20px auto;
+  margin: 1.2em auto;
 }
 
 .btn-new button {
-  padding: 8px 12px;
-  margin: 5px auto;
+  padding: .5em .7em;
+  margin: .5em auto;
   width: 100%;
   font-weight: bold;
   border-radius: 5px;
@@ -187,31 +187,4 @@ input[type="Password"] {
   background-color: rgb(235, 225, 225);
   box-shadow: 2px 1px 4px rgb(235, 225, 225);
 }
-
-.pagetop {
-  width: 80%;
-  margin: 0 auto;
-  background-color: dodgerblue;
-  height: 250px;;
-}
-
-.pagetop img {
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  margin: 50px auto;
-  border: 5px solid white;
-  outline: 5px solid dodgerblue;
-}
-
-.data p {
-  font-size: 18px;
-
-}
-
-.student img {
-  width: 150px;
-  margin-top: 100px;
-}
-
 </style>

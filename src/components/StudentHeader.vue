@@ -8,7 +8,6 @@ router.push({path: '/home'})" >
       <div class="stdheader">
         <p>{{ student.name }}</p>
         <p>{{ student.clas.class }} {{ student.clas.session }}</p>
-        <p>{{student.id}}</p>
       </div>
       <div>
         <img :src="student.photo" alt="Student photo">
