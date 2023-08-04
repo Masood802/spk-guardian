@@ -50,7 +50,6 @@ export const useloginStore = defineStore('loginstore', {
             })
             if (res.status == 200) {
                 const data = res.data
-                console.log(data)
                 alert('OTP has Sent to your email Address')
                 this.form.otp = data.otp
                 this.form.id = data.id
