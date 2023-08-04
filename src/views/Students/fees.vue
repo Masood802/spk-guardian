@@ -18,7 +18,7 @@
         <h3>Due: PKR {{ record.total }}</h3>
       </div>
       <div class="due" v-if="record.payment!=null">
-        <span class="success" ><CheckCircle/></span>
+        <span class="success"><CheckCircle/></span>
         <h3>Paid: PKR {{ record.total }}</h3>
       </div>
 
@@ -32,20 +32,25 @@
   </div>
   <div v-else>
     <div class="card">
-        <div class="content">
-          <h3>Current Amount Due</h3>
-          <h2>PKR--------</h2>
-        </div>
+      <div class="content">
+        <h2>Current Amount Due</h2>
+        <h2>PKR:13500</h2>
       </div>
-      <div class="SKfee" >
-        <h4>Tution Fee----------------------------------------</h4>
-        <h4>Admission Fee---------------------------------------</h4>
-      </div>
-<!--      <img src="../../assets/schoolpk-logo.png" alt="Show Image"/>-->
-<!--      <h2>Data is Loading.........</h2>-->
     </div>
+    <div class="SKfee">
+      <div>
+        <h4>Tution Fee</h4><h4>2700</h4>
+      </div>
+      <div>
+        <h4>Admission Fee</h4><h4>2700</h4>
+      </div>
+      <div>
+        <h4>total</h4><h4>5400</h4>
+      </div>
+    </div>
+  </div>
 
-  <bottomNav/>
+  <bottomNav v-if="!loginstore.isloading"/>
 </template>
 
 <script setup>
@@ -168,41 +173,37 @@ function formatedDate(date) {
 }
 
 .content {
-  padding: 20px 30px;
-}
-.card {
+  margin: 75px auto 0 auto;
   width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 60px auto;
-  background-color: #f7f5f5;
+  background-color: rgb(198, 195, 195);
+  color: white;
+  padding: 20px;
   border-radius: 10px;
-  padding:50px ;
 }
-.card h3{
-  margin:20px;
-  height:10px;
-  background-color: #dfdcdc;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding:20px 30px;
-  filter:blur(8px);
 
+.content h2{
+  filter: blur(5px);
 }
-.card h2{
-  height:30px;
-  background-color: #dfdcdc;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  filter: blur(8px);
-}
-.SKfee{
+
+.SKfee {
   width: 80%;
-  margin: 10px auto;
+  margin: 10px auto 40px auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 80px 50px;
+  padding: 50px 30px;
   border-radius: 10px;
   text-align: left;
-  filter:blur(5px);
-
 }
+
+.SKfee div {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.SKfee h4 {
+  filter: blur(5px);
+}
+
 img {
   width: 30%;
 }
