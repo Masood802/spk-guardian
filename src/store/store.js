@@ -20,8 +20,8 @@ export const useloginStore = defineStore('loginstore', {
         token: '',
         isloading: false
     }),
-    getters:{
-        students(){
+    getters: {
+        students() {
             return this.user?.students
         }
     },
@@ -54,7 +54,6 @@ export const useloginStore = defineStore('loginstore', {
                 alert('OTP has Sent to your email Address')
                 this.form.otp = data.otp
                 this.form.id = data.id
-                console.log(this.user.id)
             } else
                 alert(res.err)
         },
@@ -67,7 +66,6 @@ export const useloginStore = defineStore('loginstore', {
                 const data = res
                 this.page = 'varify'
                 this.$router.push('/')
-                console.log(data)
             }
         },
     }

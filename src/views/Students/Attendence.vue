@@ -39,10 +39,22 @@
         }} %</span>
     </div>
   </div>
-  <div v-else>
-    <div class="card">
-      <img src="../../assets/schoolpk-logo.png" alt="Show Image"/>
-      <h2>Data is Loading.........</h2>
+  <div class="loading" v-if="loginstore.isloading">
+    <h2>Data is Loading.........</h2>
+    <div class="box">
+      <div class="rectangle"></div>
+      <div class="rectangle"></div>
+      <div class="rectangle"></div>
+    </div>
+    <div class="info">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <div class="circlebox">
+      <div v-for="day in days">
+        <span>{{}}</span>
+      </div>
     </div>
   </div>
 
@@ -59,7 +71,7 @@
     </div>
   </div>
 
-  <bottomNav/>
+  <bottomNav v-if="!loginstore.isloading"/>
 </template>
 
 <script setup>
@@ -77,6 +89,7 @@ let attendence = ref('')
 let _date = ref('')
 let myDate = ref('')
 let route = useRoute()
+let n=ref([30])
 
 let EndDate = computed(() => {
   return moment(_date.value).add(1, 'months').format('YYYY-MM-DD')
@@ -182,8 +195,9 @@ img {
   height: 120px;
   border-radius: 5px;
 }
-.blur{
-  filter:blur(8px);
+
+.blur {
+  filter: blur(8px);
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 60px auto;
@@ -193,6 +207,7 @@ img {
   height: 120px;
   border-radius: 5px;
 }
+
 .P {
   background-color: rgb(4, 94, 4);
   padding: 12px 16px;
@@ -253,4 +268,56 @@ span {
   background-color: yellow !important;
   color: #fff;
 }
+.loading{
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+  border-radius: 5px;
+}
+.box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rectangle{
+  width:50px;
+  height:20px;
+  padding:20px 50px;
+  background-color: #ece8e8;
+  margin:20px 30px 0 30px;
+
+}
+.info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.line{
+  background-color: #ece8e8;
+  width: 10px;
+  hight: 5px;
+  padding: 5px 10px;
+  margin: 10px 70px 50px 70px;
+}
+.circlebox{
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 30px auto 120px auto;
+}
+
+.circlebox div{
+  width:3.5em;
+  height:3.5em;
+  border-radius: 100%;
+  background-color: #e5e1e1;
+  margin:10px;
+}
+
 </style>

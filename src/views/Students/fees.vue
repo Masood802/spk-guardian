@@ -11,16 +11,19 @@
     </div>
     <div class="monthfee" v-for="record in vouchers.records">
       <h4>{{ formatedDate(record.voucher_date) }}</h4>
-      <div class="due">
-        <span class="danger" v-if="record.payment === null"
+      <div class="due" v-if="record.payment === null">
+        <span class="danger"
         ><Alert-Circle
         /></span>
-        <span class="success" v-else><CheckCircle/></span>
-        <h3>Due:PKR {{ record.total }}</h3>
+        <h3>Due: PKR {{ record.total }}</h3>
+      </div>
+      <div class="due" v-if="record.payment!=null">
+        <span class="success" ><CheckCircle/></span>
+        <h3>Paid: PKR {{ record.total }}</h3>
       </div>
 
       <div class="fee" v-for="detail in record.details">
-        <h4>{{ detail.fee_category.category }}</h4>
+        <h4>{{ detail?.fee_category?.category }}</h4>
         <h4>PKR {{ detail.amount }}</h4>
       </div>
 
@@ -29,10 +32,19 @@
   </div>
   <div v-else>
     <div class="card">
-      <img src="../../assets/schoolpk-logo.png" alt="Show Image"/>
-      <h2>Data is Loading.........</h2>
+        <div class="content">
+          <h3>Current Amount Due</h3>
+          <h2>PKR--------</h2>
+        </div>
+      </div>
+      <div class="SKfee" >
+        <h4>Tution Fee----------------------------------------</h4>
+        <h4>Admission Fee---------------------------------------</h4>
+      </div>
+<!--      <img src="../../assets/schoolpk-logo.png" alt="Show Image"/>-->
+<!--      <h2>Data is Loading.........</h2>-->
     </div>
-  </div>
+
   <bottomNav/>
 </template>
 
@@ -77,7 +89,7 @@ async function loadVouchers() {
 }
 
 function formatedDate(date) {
-  return moment(date).format('MMMM-YYYY')
+  return moment(date).format('MMMM YYYY')
 }
 </script>
 
@@ -155,14 +167,42 @@ function formatedDate(date) {
   color: #2c3e50;
 }
 
+.content {
+  padding: 20px 30px;
+}
 .card {
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin: 30px auto;
-  background-color: aliceblue;
+  margin: 60px auto;
+  background-color: #f7f5f5;
   border-radius: 10px;
+  padding:50px ;
 }
+.card h3{
+  margin:20px;
+  height:10px;
+  background-color: #dfdcdc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding:20px 30px;
+  filter:blur(8px);
 
+}
+.card h2{
+  height:30px;
+  background-color: #dfdcdc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  filter: blur(8px);
+}
+.SKfee{
+  width: 80%;
+  margin: 10px auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 80px 50px;
+  border-radius: 10px;
+  text-align: left;
+  filter:blur(5px);
+
+}
 img {
   width: 30%;
 }
